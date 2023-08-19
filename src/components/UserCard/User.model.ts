@@ -5,7 +5,7 @@ export interface GitHubUser {
   login: string;
   avatar_url: string;
   html_url: string;
-  name: string;
+  name: Nullable<string>;
   bio: Nullable<string>;
   followers: number;
   following: number;

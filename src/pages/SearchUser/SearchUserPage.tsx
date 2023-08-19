@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Box, CircularProgress, Container, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import {
@@ -31,10 +31,12 @@ export const SearchUserPage = () => {
     defaultValues,
   });
 
-  const onSubmit = async ({ username }: FromInputs) => {
-    if (username) {
-      dispatch(getUserByUserName({ userName: username }));
-    }
+  useEffect(() => {
+    searchRef.current?.focus();
+  }, []);
+
+  const onSubmit = ({ username }: FromInputs) => {
+    dispatch(getUserByUserName({ userName: username }));
   };
 
   const onReset = () => {
@@ -79,12 +81,13 @@ export const SearchUserPage = () => {
           </Box>
         </form>
         <Box display="flex" justifyContent="center">
-          {user ? (
+          {isLoading ? (
+            <CircularProgress />
+          ) : user ? (
             <UserCard userData={user} />
           ) : error ? (
             <Typography>{error}</Typography>
           ) : null}
-          {isLoading && <CircularProgress />}
         </Box>
       </Box>
     </Container>

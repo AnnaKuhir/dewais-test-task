@@ -19,11 +19,12 @@ const initialState: UserState = {
 
 export const getUserByUserName = createAsyncThunk(
   "members/banMemberById",
-  async ({ userName }: { userName: string }, { rejectWithValue }) => {
+  async ({ userName }: { userName: string }, { rejectWithValue, dispatch }) => {
     try {
       const userData = await userService.getUserByUserName(userName);
       return userData.data;
     } catch (error) {
+      dispatch(resetUser());
       if (isAxiosError(error)) {
         return rejectWithValue(error?.response?.data || error);
       }

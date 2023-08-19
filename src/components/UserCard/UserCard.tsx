@@ -18,7 +18,7 @@ export const UserCard: React.FC<UserData> = ({
         subheader={`Followers: ${followers} | Following: ${following}`}
       />
       <CardContent>
-        <Typography>Name: {name}</Typography>
+        <Typography>Name: {name || "No name"}</Typography>
         <Typography>Bio: {bio || "No content"}</Typography>
         <Typography>
           GitHub profile:
