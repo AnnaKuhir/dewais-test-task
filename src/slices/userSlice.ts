@@ -1,8 +1,9 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Nullable } from "../globalTypes";
-import { GitHubUser, userService } from "../api/servises/userService";
-import { RootState } from "../store/store"; //alias
+import { userService } from "../api/servises/userService";
+import { RootState } from "../store/store";
 import { isAxiosError } from "axios";
+import { GitHubUser } from "../components/UserCard/User.model";
 
 interface UserState {
   user: Nullable<GitHubUser>;

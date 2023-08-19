@@ -1,12 +1,5 @@
+import { UseControllerProps } from "react-hook-form";
+import { AnyType } from "../../globalTypes";
 import { TextFieldProps } from "@mui/material";
-import { FieldValues, RegisterOptions } from "react-hook-form";
 
-export type ControlledInputProps = {
-  name: string;
-  label: string;
-  control: any; //change type
-  rules?: Omit<
-    RegisterOptions<FieldValues, string>,
-    "disabled" | "valueAsNumber" | "valueAsDate" | "setValueAs"
-  >;
-} & TextFieldProps;
+export type ControlledInputType = UseControllerProps<AnyType> & TextFieldProps;

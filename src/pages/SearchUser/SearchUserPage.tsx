@@ -1,8 +1,6 @@
 import { useRef } from "react";
 import { Box, CircularProgress, Container, Typography } from "@mui/material";
-import { Button } from "../../components/Button";
 import SearchIcon from "@mui/icons-material/Search";
-import { ControlledInput } from "../../components/ControlledInput";
 import {
   getUserByUserName,
   resetUser,
@@ -10,30 +8,39 @@ import {
 } from "../../slices/userSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { useForm } from "react-hook-form";
-import { UserCard } from "../../components/UserCard/UserCard";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Nullable } from "../../globalTypes";
+import { Button, ControlledInput, UserCard } from "../../components";
+
+type FromInputs = {
+  username: string;
+};
 
 export const SearchUserPage = () => {
   const dispatch = useAppDispatch();
   const { user, error, isLoading } = useAppSelector(selectUser);
   const searchRef = useRef<Nullable<HTMLInputElement>>(null);
+  const defaultValues: FromInputs = { username: "" };
 
   const {
     handleSubmit,
     control,
     reset,
     formState: { isValid },
-  } = useForm<{
-    username: string;
-  }>({
-    defaultValues: { username: "" },
+  } = useForm<FromInputs>({
+    defaultValues,
   });
 
-  const onSubmit = async (data: { username: string }) => {
-    if (data.username) {
-      dispatch(getUserByUserName({ userName: data.username }));
+  const onSubmit = async ({ username }: FromInputs) => {
+    if (username) {
+      dispatch(getUserByUserName({ userName: username }));
     }
+  };
+
+  const onReset = () => {
+    dispatch(resetUser());
+    reset();
+    searchRef.current?.focus();
   };
 
   return (
@@ -64,11 +71,7 @@ export const SearchUserPage = () => {
                 startIcon={<DeleteIcon />}
                 disabled={!user}
                 type="button"
-                onClick={() => {
-                  dispatch(resetUser());
-                  reset();
-                  searchRef.current?.focus();
-                }}
+                onClick={onReset}
               >
                 Reset
               </Button>

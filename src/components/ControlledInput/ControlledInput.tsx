@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { TextField } from "@mui/material";
-import { ControlledInputProps } from "./ControlledInput.model";
+import { ControlledInputType } from "./ControlledInput.model";
 import { Controller } from "react-hook-form";
 
-export const ControlledInput: FC<ControlledInputProps> = ({
+export const ControlledInput: FC<ControlledInputType> = ({
   name,
   label,
   control,
