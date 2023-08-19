@@ -9,24 +9,23 @@ export const ControlledInput: FC<ControlledInputProps> = ({
   control,
   variant,
   size,
+  rules,
   ...rest
 }) => {
   return (
     <Controller
       name={name}
       control={control}
-      render={({
-        field: { onChange, value },
-        fieldState: { error },
-        formState,
-      }) => (
+      rules={rules}
+      render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
-          helperText={error ? error.message : null}
           label={label}
-          variant={variant || "outlined"}
           size={size || "small"}
+          variant={variant || "outlined"}
           value={value}
           onChange={onChange}
+          error={Boolean(error)}
+          helperText={error ? error.message : null}
           {...rest}
         />
       )}
